@@ -85,10 +85,42 @@ create_symlinks() {
 
 }
 
+create_dotfiles_backup(){
+    printf "creating symlinks for project dotfiles...\n\n"
+    pushd $HOME > /dev/null 2>&1
+    now=$(date +"%Y.%m.%d.%H.%M.%S")
+
+    for file in .*; do
+        if [[ $file == "." || $file == ".." ]]; then
+            continue
+        fi
+        printf "~/$file"
+        # if the file exists:
+        if [[ -e ~/$file ]]; then
+            execute "mkdir -p ~/.dotfiles_backup/$now"
+            execute \
+                "mv ~/$file ~/.dotfiles_backup/$now/$file" \
+                "~/$file → ~/.dotfiles_backup/$now/$file"
+
+        fi
+        # symlink might still exist
+        execute \
+                "unlink ~/$file > /dev/null 2>&1" \
+                "symlink might still exist to ~/$file → unlink ~/$file"
+        
+        # create the link
+        # ln -s ~/.dotfiles/homedir/$file ~/$file
+        # echo -en '\tlinked';ok
+    done
+
+    popd > /dev/null 2>&1
+}
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 main() {
     print_in_purple "\n • Create symbolic links\n\n"
+    create_dotfiles_backup
     create_symlinks "$@"
 }
 
