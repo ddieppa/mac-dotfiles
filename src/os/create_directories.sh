@@ -9,6 +9,7 @@ create_directories() {
 
     declare -a DIRECTORIES=(
         "$HOME/src"
+        "$HOME/github"
     )
 
     for i in "${DIRECTORIES[@]}"; do

@@ -16,6 +16,7 @@ create_src_dir() {
 }
 
 clone_project(){
+    
     cd $HOME/src
 
     # if [ ! -d "./$2" ]; then
