@@ -25,6 +25,9 @@ create_symlinks() {
         "git/gitconfig"
         "git/gitignore"
 
+        "ohmyzsh/zshrc"
+        "ohmyzsh/p10k.zsh"
+
         "tmux/tmux.conf"
 
         "vim/vim"
