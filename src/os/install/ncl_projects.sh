@@ -3,20 +3,15 @@
 cd "$(dirname "${BASH_SOURCE[0]}")" \
     && . "../utils.sh"
 
-create_src_dir() {
-
-    declare -a DIRECTORIES=(
-        "$HOME/src"
-    )
-
-    for i in "${DIRECTORIES[@]}"; do
-        mkd "$i"
-    done
-
-}
 
 clone_project(){
-    
+
+    local src_directory = "$HOME/src"
+
+    if [ ! -d "$src_directory" ]; then
+        mkd "$HOME/src"
+    fi
+
     cd $HOME/src
 
     # if [ ! -d "./$2" ]; then
@@ -30,11 +25,11 @@ clone_project(){
 
 clone_regent_projects(){
     
-    clone_project https://github.nclmiami.ncl.com/pch/rssc.scala.git rssc-scala
-    clone_project https://github.nclmiami.ncl.com/pch/rssc-browse.git rssc-browse
+    clone_project git@github.nclmiami.ncl.com:pch/rssc.scala.git rssc-scala
+    clone_project git@github.nclmiami.ncl.com:pch/rssc-browse.git rssc-browse
     clone_project https://github.nclmiami.ncl.com/pch/cms-rssc.git rssc-cms
     clone_project https://github.nclmiami.ncl.com/NCLH/lyssa-prime.git rssc-lyssa-prime
-    clone_project https://github.nclmiami.ncl.com/NCLH/cms-addons.git rssc-cms-addons
+    clone_project git@github.nclmiami.ncl.com:NCLH/cms-addons.git rssc-cms-addons
     clone_project https://github.nclmiami.ncl.com/pch/rssc-lyssa-mocks.git rssc-lyssa-mocks
     clone_project https://github.nclmiami.ncl.com/rssc/search-service.git rssc-search-service
     clone_project https://github.nclmiami.ncl.com/pch/rssc-static.git rssc-static
@@ -46,7 +41,7 @@ clone_regent_projects(){
 main(){
     print_in_purple "\n   NCL Projects\n\n"
 
-    create_src_dir
+    
 
     clone_regent_projects
 }

@@ -123,8 +123,23 @@ compinit
 # Set fzf installation directory path
 export FZF_BASE="/usr/local/bin/fzf"
 
+export FZF_DEFAULT_OPTS='--height=70% --preview="bat --style=numbers --color=always {} | head -500" --preview-window=right:60%:wrap'
+
+export FZF_DEFAULT_COMMAND='ag --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
+
 # Uncomment the following line to disable fuzzy completion
 # export DISABLE_FZF_AUTO_COMPLETION="true"
 
 # Uncomment the following line to disable key bindings (CTRL-T, CTRL-R, ALT-C)
 # export DISABLE_FZF_KEY_BINDINGS="true"
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# fd - Find any directory and cd to selected directory
+fd() {
+ local dir
+ dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d \
+      -print 2> /dev/null | fzf +m) &&
+ cd "$dir"
+}
