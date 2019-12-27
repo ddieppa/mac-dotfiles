@@ -10,6 +10,7 @@ add_ssh_configs() {
     printf "%s\n" \
         "Host github.com" \
         "  IdentityFile $1" \
+        "  UseKeychain yes" \
         "  LogLevel ERROR" >> ~/.ssh/config
 
     print_result $? "Add SSH configs"
@@ -62,7 +63,8 @@ open_github_ssh_page() {
 
 set_github_ssh_key() {
 
-    local sshKeyFileName="$HOME/.ssh/github"
+    local sshKeyName="github"
+    local sshKeyFileName="$HOME/.ssh/$sshKeyName"
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -70,17 +72,19 @@ set_github_ssh_key() {
     # name, generate another, unique, file name.
 
     if [ -f "$sshKeyFileName" ]; then
-        sshKeyFileName="$(mktemp -u "$HOME/.ssh/github_XXXXX")"
+        sshKeyFileName="$(mktemp -u "$HOME/.ssh/${sshKeyName}_XXXXX")"
     fi
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     generate_ssh_keys "$sshKeyFileName"
-    add_ssh_configs "$sshKeyFileName"
     copy_public_ssh_key_to_clipboard "${sshKeyFileName}.pub"
     open_github_ssh_page
     test_ssh_connection \
         && rm "${sshKeyFileName}.pub"
+    execute "ssh-add -K $sshKeyName" \
+            "$sshKeyName added to Keychain"
+    add_ssh_configs "$sshKeyFileName"
 
 }
 
