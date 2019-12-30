@@ -67,8 +67,8 @@ ZSH_THEME=powerlevel10k/powerlevel10k
 plugins=(
   git
   z
-  fast-syntax-highlighting 
-  zsh-autosuggestions 
+  fast-syntax-highlighting
+  zsh-autosuggestions
   alias-tips
   docker
   docker-compose
@@ -125,7 +125,7 @@ export FZF_BASE="/usr/local/bin/fzf"
 
 export FZF_DEFAULT_OPTS='--height=70% --preview="bat --style=numbers --color=always {} | head -500" --preview-window=right:60%:wrap'
 
-export FZF_DEFAULT_COMMAND='ag --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
 
 # Uncomment the following line to disable fuzzy completion
