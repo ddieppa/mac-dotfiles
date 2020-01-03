@@ -74,6 +74,26 @@ create_local_confs_symlinks(){
     
 }
 
+haproxy_configuration(){
+    haproxyConfigFolder="$src_directory/rssc-config-haproxy/"
+    cfgSourceFile="$haproxyConfigFolder/haproxy.cfg"
+    cfgTargetFile="/usr/local/etc/haproxy.cfg"
+    sslSourceFile="$haproxyConfigFolder/ssl/private.pem"
+    sslTargetFile="/usr/local/etc/ssl/certs/private.pem"
+    execute "ln -fs $sslSourceFile $sslTargetFile" \
+                        "$sslTargetFile → $sslSourceFile"
+
+    execute "ln -fs $cfgSourceFile $cfgTargetFile" \
+                        "$cfgTargetFile → $cfgSourceFile"
+    
+    execute "brew services restart haproxy" 
+}
+
+nmv_configuration(){
+    execute "nvm install 8.11.3"
+    execute "nvm alias default 8.11.3"
+}
+
 update_hosts_file(){
     execute "sudo cp /etc/hosts /etc/hosts.backup" "Backup hosts file"
     newHostsFile="$(cd ../.. && pwd)/hosts/hosts"
@@ -89,6 +109,12 @@ main(){
     
     update_hosts_file
 
+    haproxy_configuration
+    nmv_configuration
+
+    sudo mkdir -p /var/log/rssc-scala
+    sudo touch /var/log/rssc-scala/application.log
+    sudo chmod 777 /var/log/rssc-scala/application.log
 }
 
 main

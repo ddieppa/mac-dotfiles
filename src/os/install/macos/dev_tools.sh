@@ -24,6 +24,8 @@ brew_install "sbt" "sbt"
 brew_install "scala" "scala"
 brew_cask "IntelliJIDEA" "intellij-idea"
 brew_cask "Visual Studio for Mac" "visual-studio"
+brew_cask "Haproxy" "haproxy"
+brew services start haproxy
 
 if [ -d "$HOME/.nvm" ]; then
     brew_install "Yarn" "yarn"
