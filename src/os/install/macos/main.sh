@@ -8,7 +8,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")" \
 
 ./xcode.sh
 ./homebrew.sh
-# ./bash.sh
+./bash.sh
 
 ./git.sh
 ./../nvm.sh
@@ -21,7 +21,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")" \
 ./browsers.sh
 ./communication.sh
 ./dev_tools.sh
-./../ncl_projects.sh
+# ./../ncl_projects.sh
 # ./compression_tools.sh
 # ./gpg.sh
 ./image_tools.sh
