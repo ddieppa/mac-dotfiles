@@ -113,8 +113,29 @@ main(){
     nmv_configuration
 
     sudo mkdir -p /var/log/rssc-scala
-    sudo touch /var/log/rssc-scala/application.log
-    sudo chmod 777 /var/log/rssc-scala/application.log
+    sudo touch /var/log/rssc-scala/rssc-scala.log
+    sudo chmod 777 /var/log/rssc-scala/rssc-scala.log
+
+    mkdir -p ~/src/rssc-data/rssc.drupal-files/files
+    mkdir -p ~/src/rssc-data/elasticsearch-data
+    mkdir -p ~/src/rssc-data/mysql-data
+    mkdir -p ~/src/rssc-data/mysql-dump
+
+    rssc-config-mysql-dump
+    mv rssc_drupal_qa2_20191125.sql rssc_drupal.sql
+    ln -fs ~/src/rssc-config-mysql-dump/rssc_drupal.sql ~/src/rssc-data/mysql-dump/rssc_drupal.sql
+
+
+    # Create log file (alt)
+    sudo mkdir -p /var/log/rssc-cms-service
+    sudo touch /var/log/rssc-cms-service/application.log
+    sudo chmod 777 /var/log/rssc-cms-service/application.log
+
+    # Generate classes and run
+    cd ~/src/cms-rssc
+    sbt -Dconfig.file=conf/local.conf nclhGenScalaFiles
+    sbt -Dconfig.file=conf/local.conf run
+    
 }
 
 main

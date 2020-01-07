@@ -16,3 +16,5 @@
 127.0.0.1       local.rssc.com
 127.0.0.1       local-drupal.rssc.com
 127.0.0.1       local-legacy.rssc.com
+127.0.0.1       dotnet.rssc.com
+127.0.0.1       elasticsearch.rssc.com
