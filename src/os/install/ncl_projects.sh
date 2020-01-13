@@ -135,6 +135,12 @@ main(){
     cd ~/src/cms-rssc
     sbt -Dconfig.file=conf/local.conf nclhGenScalaFiles
     sbt -Dconfig.file=conf/local.conf run
+
+    # docker exec -it rssc_mysql /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
+    # mysql -u root -p -h 127.0.0.1 -e "CREATE DATABASE rssc_scala"
+    # enter root pwd: root
+    # mysql -u root -p -h 127.0.0.1 rssc_scala < ~/src/rssc-config-indexer-data/rssc_scala.sql 
+    
     
 }
 
